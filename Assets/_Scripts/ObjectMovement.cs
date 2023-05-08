@@ -78,7 +78,7 @@ public class ObjectMovement : MonoBehaviour
             PlayerHit(other.gameObject);
             DestroyObject();
         }
-        else if(!other.CompareTag("Object"))
+        else if(!other.CompareTag("Object") || !other.CompareTag("Laser"))
         {
             DestroyObject();
         }

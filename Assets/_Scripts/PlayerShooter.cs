@@ -12,6 +12,8 @@ public class PlayerShooter : MonoBehaviour
     private int currentAmmo; // current ammo count
     public int CurrentAmmo {get {return currentAmmo;}}
     private bool isReloading = false; // flag for reloading
+    private bool laserActive;
+    [SerializeField] private GameObject laser;
     
 
     private void Start()
@@ -30,6 +32,11 @@ public class PlayerShooter : MonoBehaviour
                 StartCoroutine(Reload());
             }
         }
+
+        if (laserActive)
+        {
+            laser.SetActive(true);
+        } else laser.SetActive(false);
     }
 
     private void Shoot()
@@ -44,5 +51,20 @@ public class PlayerShooter : MonoBehaviour
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = ammoCapacity;
         isReloading = false;
+    }
+
+    public void DeactivateLaser()
+    {
+        laserActive = false;
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Laser"))
+        {
+            Destroy(other);
+            laserActive = true;
+            Invoke("DeactivateLaser", 5f);
+        }
     }
 }

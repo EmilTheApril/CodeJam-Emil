@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int highScore;
     [SerializeField] private bool initiateGame;
     [SerializeField] private bool gameStarted;
+    public float speedMultiplier { get; private set; }
 
     [SerializeField] private TextMeshProUGUI gameoverPanelScoreText;
     [SerializeField] private TextMeshProUGUI gameoverPanelHighscoreText;
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
     {
         //Reset score
         score = 0;
+        speedMultiplier = 1;
 
         //Start Game
         initiateGame = true;
@@ -123,7 +125,8 @@ public class GameManager : MonoBehaviour
         }
 
         if (!gameStarted) return;
-        score += Time.deltaTime;
+        speedMultiplier += 0.1f * Time.deltaTime;
+        score += Time.deltaTime * speedMultiplier;
         scoreText.text = $"{score.ToString("0")}m";
 
         if (!SpawnManager.instance.GetSpawningStatus())

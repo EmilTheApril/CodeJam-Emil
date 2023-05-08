@@ -105,8 +105,8 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &8964790557067003802
 MonoBehaviour:
@@ -121,9 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedMinMax: {x: 50, y: 200}
-  speed: 100
-  spinSpeedMinMax: {x: 0, y: 0}
-  spinSpeed: 0
+  isHealth: 0
   hitValue: 1
   doesDamage: 1
 --- !u!58 &907640300261739803

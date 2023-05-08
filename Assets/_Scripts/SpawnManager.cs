@@ -6,9 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager instance;
 
-    [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private GameObject healthPickup;
-    [SerializeField] private float spawnRate = 1;
+    [SerializeField] private GameObject[] prefabs;
     [SerializeField] private float spawnHeight;
     [SerializeField] float leftSideOfScreen;
     [SerializeField] float rightSideOfScreen;
@@ -51,7 +49,7 @@ public class SpawnManager : MonoBehaviour
 
     public IEnumerator SpawnTimer()
     {
-        yield return new WaitForSeconds(spawnRate);
+        yield return new WaitForSeconds((1/GameManager.instance.speedMultiplier)*4);
         SpawnObject();
         StartCoroutine("SpawnTimer");
     }
@@ -65,20 +63,15 @@ public class SpawnManager : MonoBehaviour
         int numSpawn = Random.Range(0, 101);
         if (numSpawn >= 95)
         {
-            Instantiate(healthPickup, Spawnpos(), Quaternion.identity);
+            Instantiate(prefabs[0], Spawnpos(), Quaternion.identity);
+        }
+        else if(numSpawn >= 90)
+        {
+            Instantiate(prefabs[1], Spawnpos(), Quaternion.identity);
         }
         else
         {
-            Instantiate(enemyPrefab, Spawnpos(), Quaternion.identity);
+            Instantiate(prefabs[2], Spawnpos(), Quaternion.identity);
         }
     }
-    public float GetSpawnRate()
-    {
-        return spawnRate;
-    }
-    public void SetSpawnRate(float vSpawnRate)
-    {
-        spawnRate = vSpawnRate;
-    }
-
 }
